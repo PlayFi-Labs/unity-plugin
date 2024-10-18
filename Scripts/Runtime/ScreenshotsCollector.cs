@@ -101,6 +101,8 @@ namespace PlayFi
 
 		public bool IsMakingScreenshot => isMakingScreenshot;
 
+		public string ModelId => modelId;
+
 		public void ProcessScreenshot()
 		{
 			Initialize();
@@ -171,7 +173,7 @@ namespace PlayFi
 			{
 				if (png !=null && !AreByteArraysEqual(png, lastScreenshotWithData?.Image))
 				{
-					lastScreenshotWithData = new ScreenshotWithData(png, modelId, payloadJson);
+					lastScreenshotWithData = new ScreenshotWithData(png, ModelId, payloadJson);
 					queue.Enqueue(lastScreenshotWithData);
 				}
 				isMakingScreenshot = false;
