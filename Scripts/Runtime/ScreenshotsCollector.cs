@@ -10,6 +10,7 @@ namespace PlayFi
 	{
 		[SerializeField] private bool isEnabled = true;
 		[SerializeField, Range(0.1f,60f)] float screenshotTimeoutInSec = 15f;
+		[SerializeField] private string modelId;
 		[SerializeField] private bool isDebugMode;
 		
 		private string payloadJson;
@@ -117,6 +118,11 @@ namespace PlayFi
 			this.screenshotTimeoutInSec = screenshotTimeoutInSec;
 		}
 
+		public void SetModelId(string modelId)
+		{
+			this.modelId = modelId;
+		}
+		
 		public void SetPayloadJson(string payloadJson)
 		{
 			this.payloadJson = ValidateJson(payloadJson);
@@ -165,7 +171,7 @@ namespace PlayFi
 			{
 				if (png !=null && !AreByteArraysEqual(png, lastScreenshotWithData?.Image))
 				{
-					lastScreenshotWithData = new ScreenshotWithData(png, payloadJson);
+					lastScreenshotWithData = new ScreenshotWithData(png, modelId, payloadJson);
 					queue.Enqueue(lastScreenshotWithData);
 				}
 				isMakingScreenshot = false;
@@ -179,7 +185,7 @@ namespace PlayFi
 			
 			screenshotWithData.Payload = ValidateJson(screenshotWithData.Payload);
 			
-			StartCoroutine(uploader.DoUpload(screenshotWithData.Image, screenshotWithData.Payload, isDebugMode, result =>
+			StartCoroutine(uploader.DoUpload(screenshotWithData.Image, screenshotWithData.ModelId, screenshotWithData.Payload, isDebugMode, result =>
 			{
 				if (result)
 					uploadingScreenshotWithData = null;
