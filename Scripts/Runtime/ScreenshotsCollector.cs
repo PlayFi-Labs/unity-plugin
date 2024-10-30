@@ -26,6 +26,9 @@ namespace PlayFi
 		private const int QueueLimit = 1;
 		private Uploader uploader;
 		
+		public Action screenshotProcessingStart;
+		public Action screenshotProcessingFinish;
+		
 		public static ScreenshotsCollector Instance
 		{
 			get
@@ -50,6 +53,46 @@ namespace PlayFi
 				return instance;
 			}
 		}
+
+		public bool IsEnabled
+		{
+			get => isEnabled;
+			set
+			{
+				if (value && !isEnabled)
+					timeAccumulated = float.MaxValue;
+				isEnabled = value; 
+			}
+		}
+		
+		public float ScreenshotTimeoutInSec
+		{
+			get => screenshotTimeoutInSec;
+			set { screenshotTimeoutInSec = value; }
+		}
+		
+		public string PayloadJson
+		{
+			get => payloadJson;
+			set => payloadJson = ValidateJson(value);
+		}
+
+		public bool IsMakingScreenshot => isMakingScreenshot;
+
+		public string ModelId
+		{
+			get => modelId;
+			set => modelId = value;
+		}
+
+		public void ProcessScreenshot()
+		{
+			Initialize();
+			if (!isMakingScreenshot)
+				StartCoroutine(DoProcessScreenshot());
+		}
+
+		#region private methods
 		
 		private void Awake()
 		{
@@ -81,55 +124,6 @@ namespace PlayFi
 		{
 			ScreenshotsMaker.Dispose();
 		}
-
-		public Action screenshotProcessingStart;
-		public Action screenshotProcessingFinish;
-		
-		public float ScreenshotTimeoutInSec => screenshotTimeoutInSec;
-		public bool IsEnabled
-		{
-			get => isEnabled;
-			set
-			{
-				if (value && !isEnabled)
-					timeAccumulated = float.MaxValue;
-				isEnabled = value; 
-			}
-		}
-		
-		public string PayloadJson => payloadJson;
-
-		public bool IsMakingScreenshot => isMakingScreenshot;
-
-		public string ModelId => modelId;
-
-		public void ProcessScreenshot()
-		{
-			Initialize();
-			if (!isMakingScreenshot)
-				StartCoroutine(DoProcessScreenshot());
-		}
-		
-		public void Enable(bool isEnabled)
-		{
-			IsEnabled = isEnabled;
-		}
-		
-		public void SetTimeout(float screenshotTimeoutInSec)
-		{
-			this.screenshotTimeoutInSec = screenshotTimeoutInSec;
-		}
-
-		public void SetModelId(string modelId)
-		{
-			this.modelId = modelId;
-		}
-		
-		public void SetPayloadJson(string payloadJson)
-		{
-			this.payloadJson = ValidateJson(payloadJson);
-		}
-
 		private string ValidateJson(string json)
 		{
 			if (IsJsonValid(json))
@@ -146,7 +140,7 @@ namespace PlayFi
 				yield return new WaitUntil(() => IsEnabled);
 				timeAccumulated = 0;
 				ProcessScreenshot();
-				yield return new WaitUntil(() => timeAccumulated > screenshotTimeoutInSec);
+				yield return new WaitUntil(() => timeAccumulated > ScreenshotTimeoutInSec);
 			}
 		}
 
@@ -173,7 +167,7 @@ namespace PlayFi
 			{
 				if (png !=null && !AreByteArraysEqual(png, lastScreenshotWithData?.Image))
 				{
-					lastScreenshotWithData = new ScreenshotWithData(png, ModelId, payloadJson);
+					lastScreenshotWithData = new ScreenshotWithData(png, modelId, payloadJson);
 					queue.Enqueue(lastScreenshotWithData);
 				}
 				isMakingScreenshot = false;
@@ -226,5 +220,7 @@ namespace PlayFi
 			uploader = gameObject.AddComponent<Uploader>();
 			isInitialized = true;
 		}
+		
+		#endregion
 	}
 }
