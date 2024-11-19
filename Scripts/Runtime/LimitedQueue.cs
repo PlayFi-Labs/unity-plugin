@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PlayFi
+namespace Lift
 {
 	internal class LimitedQueue<T> : Queue<T>
 	{

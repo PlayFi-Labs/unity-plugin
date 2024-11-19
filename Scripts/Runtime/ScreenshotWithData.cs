@@ -1,6 +1,6 @@
 
 
-namespace PlayFi
+namespace Lift
 {
     internal class ScreenshotWithData
     {

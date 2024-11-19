@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Linq;
-using PlayFi.Web;
+using Lift.Web;
 
-namespace PlayFi
+namespace Lift
 {
 	public class ScreenshotsCollector : MonoBehaviour
 	{
@@ -40,7 +40,7 @@ namespace PlayFi
 				
 				var go = new GameObject
 				{
-					name = "PlayFiScreenshotsCollector"
+					name = "LiftScreenshotsCollector"
 				};
 				go.AddComponent<ScreenshotsCollector>();
 				instance = go.GetComponent<ScreenshotsCollector>();

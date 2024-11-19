@@ -1,22 +1,17 @@
 {
-  "name": "ai.playfi.unity.screenshots.collector",
+  "name": "ai.lift.unity.screenshots.collector",
   "version": "0.1.0",
-  "displayName": "PlayFi Unity Screenshots Collector",
+  "displayName": "LIFT Unity Screenshots Collector",
   "description": "This is a package for collecting screenshots from Unity projects for AI processing",
   "unity": "2021.3",
   "unityRelease": "7f1",
-  "documentationUrl": "https://docs.playfi.ai/for-developers/",
-  "changelogUrl": "https://docs.playfi.ai/for-developers/UnityScreenshotsCollector/changelog.html",
-  "licensesUrl": "https://docs.playfi.ai/for-developers/UnityScreenshotsCollector/licensing.html",
-  "dependencies": {
-    
- },
- "keywords": [
-
-  ],
+  "documentationUrl": "https://docs.liftdata.ai/for-developers/",
+  "changelogUrl": "https://docs.liftdata.ai/for-developers/UnityScreenshotsCollector/changelog.html",
+  "licensesUrl": "https://docs.liftdata.ai/for-developers/UnityScreenshotsCollector/licensing.html",
+  "keywords": [],
   "author": {
-    "name": "PlayFi",
-    "email": "info@playfi.ai",
-    "url": "https://www.playfi.ai/"
+    "name": "LIFT",
+    "email": "info@liftdata.ai",
+    "url": "https://www.liftdata.ai/"
   }
 }

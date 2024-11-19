@@ -1,6 +1,6 @@
 using UnityEditor.Callbacks;
 
-namespace PlayFi.Editor
+namespace Lift.Editor
 {
     internal static class SceneProcessor
     {

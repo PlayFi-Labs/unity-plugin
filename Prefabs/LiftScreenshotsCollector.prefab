@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8055016300623197131}
   - component: {fileID: 8536956037972128879}
   m_Layer: 0
-  m_Name: PlayFiScreenshotsCollector
+  m_Name: LiftScreenshotsCollector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

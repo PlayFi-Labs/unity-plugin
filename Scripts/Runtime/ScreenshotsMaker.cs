@@ -7,7 +7,7 @@ using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 using Object = UnityEngine.Object;
 
-namespace PlayFi
+namespace Lift
 {
 	internal static class ScreenshotsMaker
 	{
@@ -154,7 +154,7 @@ namespace PlayFi
 		{
 			if (!isLoggingEnabled)
 				return;
-			Debug.Log($"PlayFi ScreenshotMaker: {str}");
+			Debug.Log($"Lift ScreenshotMaker: {str}");
 		}
 	}
 }
